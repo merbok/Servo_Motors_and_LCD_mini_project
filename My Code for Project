@@ -1,0 +1,44 @@
+// David Barkes wrote (some copy and paste from others code) for Peter Dalmaris' course:
+// "Arduino Step by Step" The project is entitled "Servo Motors and LCD mini project"
+// The YouTube video can be found here: https://youtu.be/a8vYJnqxPzE
+
+#include <Wire.h>
+#include <LCD.h>
+#include <LiquidCrystal_I2C.h>
+#include <VarSpeedServo.h>
+
+VarSpeedServo myservo;    // create servo object to control a servo
+const int potPin = A0;    // analog pin used to connect the potentiometer
+const int servoPin = 9;   // PWM pin for servo
+int val;                  // variable to read the value from the A0 pin
+
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE); // Addr, En, Rw, Rs, d4, d5, d6, d7, backlighpin, polarity
+
+void setup () {
+  
+  Wire.begin();
+  myservo.attach(servoPin);     // attaches the servo on pin 9 to the servo object
+  lcd.begin(16,2);
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("SERVO POSITION:"); // Writes to LCD only once
+  lcd.setCursor(4, 1);          // and does not get
+  lcd.print("DEGREES");         // overwritten
+  }
+
+void loop () {
+
+  val = analogRead(potPin);          // reads the value of the potentiometer from pin A0 (value between 0 and 1023) 
+  val = map(val, 0, 1023, 0, 180);   // scale it to use it with the servo (value from 0 and 180) 
+  myservo.write(val);                // sets the servo position according to the scaled value 
+  delay(10);                         // waits a bit before the next value is read and written 
+   
+  {
+   lcd.setCursor(0, 1);     // sets the cursor position to line 2
+   lcd.print(val);          // prints the mapped value of potPin as "DEGREES"
+   delay (10);              // build some time so as not to flicker
+   lcd.setCursor(0, 1);     // resets cursor to position 1 of line 2
+   lcd.print("   ");        // clears the first three characters of line 2 of LCD
+   
+   }
+ }
