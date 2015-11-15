@@ -1,6 +1,6 @@
 // David Barkes wrote (some copy and paste from others code) for Peter Dalmaris' course:
 // "Arduino Step by Step" The project is entitled "Servo Motors and LCD mini project"
-// The YouTube video can be found here: https://youtu.be/a8vYJnqxPzE
+// The YouTube video can be found here: https://youtu.be/gRkgpkDa01s
 
 #include <Wire.h>
 #include <LCD.h>
