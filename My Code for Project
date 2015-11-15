@@ -5,6 +5,7 @@
 #include <Wire.h>
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
+// The I2C LCD controller has SDA to Pin A4 and SCL to Pin A5
 #include <VarSpeedServo.h>
 
 VarSpeedServo myservo;    // create servo object to control a servo
